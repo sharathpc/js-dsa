@@ -12,8 +12,8 @@ import {
 } from '@chakra-ui/react'
 
 import styles from '../styles/stack.module.scss';
-import CStack from '../functions/stack';
 import TostConfig from '../data/tostConfig';
+import CStack from '../functions/stack';
 
 const cStack = new CStack();
 

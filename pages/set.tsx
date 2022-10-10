@@ -12,8 +12,8 @@ import {
 } from '@chakra-ui/react'
 
 import styles from '../styles/set.module.scss';
-import CSet from '../functions/set';
 import TostConfig from '../data/tostConfig';
+import CSet from '../functions/set';
 
 const cSet = new CSet();
 
