@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app'
-import { ChakraProvider, color, withDefaultColorScheme } from '@chakra-ui/react'
+import { ChakraProvider, withDefaultColorScheme } from '@chakra-ui/react'
 import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
 
 import Layout from '../components/Layout'
@@ -12,7 +12,7 @@ const theme: ThemeConfig = extendTheme(
   }),
   {
     initialColorMode: 'light',
-    useSystemColorMode: false,
+    useSystemColorMode: true,
   }
 )
 
