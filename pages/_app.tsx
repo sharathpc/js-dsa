@@ -11,7 +11,7 @@ const theme: ThemeConfig = extendTheme(
     components: ['Button', 'Tabs'],
   }),
   {
-    initialColorMode: 'light',
+    initialColorMode: 'system',
     useSystemColorMode: true,
   }
 )
