@@ -1,17 +1,26 @@
 export default class CStack {
     private storage: any;
     private count: number;
+
     constructor() {
         this.storage = {};
         this.count = 0;
     }
 
-    push(val: number) {
+    get size(): number {
+        return this.count;
+    }
+
+    get values(): any[] {
+        return Object.values(this.storage);
+    }
+
+    push(val: any): void {
         this.storage[this.count] = val;
         this.count++;
     }
 
-    pop(): number | undefined {
+    pop(): any {
         if (this.count === 0) {
             return undefined
         }
@@ -22,15 +31,7 @@ export default class CStack {
         return result;
     }
 
-    peek(): number {
+    peek(): any {
         return this.storage[this.count - 1];
-    }
-
-    get size(): number {
-        return this.count;
-    }
-
-    get elements(): number[] {
-        return Object.values(this.storage);
     }
 }

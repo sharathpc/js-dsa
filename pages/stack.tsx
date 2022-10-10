@@ -21,7 +21,7 @@ const Stack: NextPage = () => {
       const newNum = Math.floor(Math.random() * 10) + 1;
       cStack.push(newNum);
       setOutput(`Item pushed: ${newNum}`);
-      setDSAStack(cStack.elements);
+      setDSAStack(cStack.values);
     }
   }
 
@@ -29,7 +29,7 @@ const Stack: NextPage = () => {
     if (cStack.size > 0) {
       const poppedNum = cStack.pop();
       setOutput(`Item popped: ${poppedNum}`);
-      setDSAStack(cStack.elements);
+      setDSAStack(cStack.values);
     }
   }
 
@@ -42,7 +42,7 @@ const Stack: NextPage = () => {
   }
 
   return (
-    <div>
+    <>
       <SimpleGrid my={10} columns={2} spacing={10}>
         <SectionItem>
           <ul className={styles.stackContainer}>
@@ -63,43 +63,22 @@ const Stack: NextPage = () => {
           <Tab>Peek</Tab>
           <Tab>Size</Tab>
         </TabList>
-
         <TabPanels>
           <TabPanel>
-            <Button
-              width={100}
-              onClick={pushHandler}
-            >
-              Push
-            </Button>
+            <Button width={100} onClick={pushHandler}>Push</Button>
           </TabPanel>
           <TabPanel>
-            <Button
-              width={100}
-              onClick={popHandler}
-            >
-              Pop
-            </Button>
+            <Button width={100} onClick={popHandler}>Pop</Button>
           </TabPanel>
           <TabPanel>
-            <Button
-              width={100}
-              onClick={peekHandler}
-            >
-              Peek
-            </Button>
+            <Button width={100} onClick={peekHandler}>Peek</Button>
           </TabPanel>
           <TabPanel>
-            <Button
-              width={100}
-              onClick={sizeHandler}
-            >
-              Size
-            </Button>
+            <Button width={100} onClick={sizeHandler}>Size</Button>
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </div>
+    </>
   )
 }
 
