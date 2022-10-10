@@ -6,7 +6,7 @@
   text-align: center;
   display: flex;
   flex-direction: column-reverse;
-  height: 320px;
+  min-height: 320px;
   border: 1px solid;
   border-top: none;
   .stackItem {

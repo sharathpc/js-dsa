@@ -2,63 +2,78 @@ import { useState } from 'react';
 import type { NextPage } from 'next'
 import {
   Button,
-  SimpleGrid,
-  Tabs, TabList, TabPanels, Tab, TabPanel
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  useToast,
+  Flex
 } from '@chakra-ui/react'
 
 import styles from '../styles/stack.module.scss';
-import SectionItem from '../components/SectionItem';
 import CStack from '../functions/stack';
+import TostConfig from '../data/tostConfig';
 
-let cStack = new CStack();
+const cStack = new CStack();
 
 const Stack: NextPage = () => {
   const [DSAStack, setDSAStack] = useState<any[]>([]);
-  const [output, setOutput] = useState<string>('');
+  const toast = useToast(TostConfig);
 
   const pushHandler = () => {
-    if (cStack.size <= 8) {
-      const newNum = Math.floor(Math.random() * 10) + 1;
-      cStack.push(newNum);
-      setOutput(`Item pushed: ${newNum}`);
-      setDSAStack(cStack.values);
-    }
+    const newNum = Math.floor(Math.random() * 10) + 1;
+    cStack.push(newNum);
+    toast({
+      title: 'Item pushed',
+      status: 'success',
+      description: newNum
+    });
+    setDSAStack(cStack.values);
   }
 
   const popHandler = () => {
     if (cStack.size > 0) {
       const poppedNum = cStack.pop();
-      setOutput(`Item popped: ${poppedNum}`);
+      toast({
+        title: 'Item popped',
+        status: 'warning',
+        description: poppedNum
+      });
       setDSAStack(cStack.values);
     }
   }
 
   const peekHandler = () => {
-    setOutput(`Peek item: ${cStack.peek()}`);
+    toast({
+      title: 'Peek item',
+      description: cStack.peek()
+    });
   }
 
   const sizeHandler = () => {
-    setOutput(`Stack length: ${cStack.size}`);
+    toast({
+      title: 'Stack size',
+      description: cStack.size
+    });
   }
 
   const valuesHandler = () => {
-    setOutput(`Stack values: ${cStack.values}`);
+    toast({
+      title: 'Stack values',
+      description: cStack.values.toString()
+    });
   }
 
   return (
     <>
-      <SimpleGrid my={10} columns={2} spacing={10}>
-        <SectionItem>
-          <ul className={styles.stackContainer}>
-            {DSAStack.map((item, index) =>
-              <li className={styles.stackItem} key={index}>{item}</li>
-            )}
-          </ul>
-        </SectionItem>
-        <SectionItem title='Output'>
-          {output}
-        </SectionItem>
-      </SimpleGrid>
+      <Flex my={10} minH={'40vh'} direction={'column'} alignItems={'center'}>
+        <ul className={styles.stackContainer}>
+          {DSAStack.map((item, index) =>
+            <li className={styles.stackItem} key={index}>{item}</li>
+          )}
+        </ul>
+      </Flex>
 
       <Tabs>
         <TabList>

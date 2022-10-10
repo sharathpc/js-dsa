@@ -14,51 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 import HeadingSection from '../components/HeadingSection';
-
-
-interface LinkItemProps {
-    name: string;
-    description: string,
-    icon: IconType;
-    href: string;
-}
-
-const LinkItems: Array<LinkItemProps> = [{
-    name: 'Stack',
-    description: 'A Stack is a linear type of data structure which follows the LIFO(Last-In-First-Out) and allows insertion and deletion operations from one end of the data structure',
-    icon: FiHome,
-    href: '/stack'
-}, {
-    name: 'Set',
-    description: 'A set is a data structure that stores unique elements of the same type in a sorted order',
-    icon: FiHome,
-    href: '/set'
-}, {
-    name: 'Queue',
-    description: '',
-    icon: FiHome,
-    href: '/queue'
-}, {
-    name: 'Linked List',
-    description: '',
-    icon: FiHome,
-    href: '/linked-list'
-}, {
-    name: 'Tree',
-    description: '',
-    icon: FiHome,
-    href: '/tree'
-}, {
-    name: 'Trie',
-    description: '',
-    icon: FiHome,
-    href: '/trie'
-}, {
-    name: 'Graph',
-    description: '',
-    icon: FiHome,
-    href: '/graph'
-}];
+import LinkItems from '../data/listItems';
 
 const Layout = ({ children }: { children: ReactNode }) => {
     const router = useRouter();
@@ -74,8 +30,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 pos="fixed"
                 h="full">
                 <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-                    <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                        DSA Site
+                    <Text fontSize="4xl" fontFamily="monospace" fontWeight="bold">
+                        JS DSA
                     </Text>
                 </Flex>
                 {LinkItems.map((link) => (

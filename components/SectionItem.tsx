@@ -3,12 +3,13 @@ import { Flex, Heading } from '@chakra-ui/react';
 
 interface Props {
     title?: string,
+    height: any,
     children: ReactNode
 }
 
-const SectionItem = ({ title, children }: Props) => {
+const SectionItem = ({ title, height, children }: Props) => {
     return (
-        <Flex direction={'column'} alignItems={'center'}>
+        <Flex my={10} height={height} direction={'column'} alignItems={'center'}>
             {title && <Heading as='h4' size='md' mb={5}>{title}</Heading>}
             {children}
         </Flex>

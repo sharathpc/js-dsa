@@ -2,34 +2,45 @@ import { useState } from 'react';
 import type { NextPage } from 'next'
 import {
   Button,
-  SimpleGrid,
-  Tabs, TabList, TabPanels, Tab, TabPanel
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  useToast,
+  Flex
 } from '@chakra-ui/react'
 
 import styles from '../styles/set.module.scss';
-import SectionItem from '../components/SectionItem';
 import CSet from '../functions/set';
+import TostConfig from '../data/tostConfig';
 
-let cSet = new CSet();
+const cSet = new CSet();
 
 const Set: NextPage = () => {
   const [DSASet, setDSASet] = useState<any[]>([]);
-  const [output, setOutput] = useState<string>('');
+  const toast = useToast(TostConfig);
 
   const addHandler = () => {
-    if (cSet.size <= 10) {
-      const newNum = Math.floor(Math.random() * 10) + 1;
-      const addRes = cSet.add(newNum);
-      setOutput(`Item ${newNum} added: ${addRes}`);
-      setDSASet(cSet.values);
-    }
+    const newNum = Math.floor(Math.random() * 10) + 1;
+    const addRes = cSet.add(newNum);
+    toast({
+      title: `Item ${newNum} added`,
+      status: (addRes ? 'success' : 'error'),
+      description: addRes.toString()
+    });
+    setDSASet(cSet.values);
   }
 
   const removeHandler = () => {
     if (cSet.size > 0) {
       const newNum = Math.floor(Math.random() * 10) + 1;
       const removeRes = cSet.remove(newNum);
-      setOutput(`Item ${newNum} removed: ${removeRes}`);
+      toast({
+        title: `Item ${newNum} removed`,
+        status: (removeRes ? 'warning' : 'error'),
+        description: removeRes.toString()
+      });
       setDSASet(cSet.values);
     }
   }
@@ -37,31 +48,36 @@ const Set: NextPage = () => {
   const hasHandler = () => {
     const newNum = Math.floor(Math.random() * 10) + 1;
     const hasRes = cSet.has(newNum);
-    setOutput(`Has ${newNum} item: ${hasRes}`);
+    toast({
+      title: `Has ${newNum} item`,
+      status: (hasRes ? 'success' : 'error'),
+      description: hasRes.toString()
+    });
   }
 
   const sizeHandler = () => {
-    setOutput(`Set length: ${cSet.size}`);
+    toast({
+      title: 'Set size',
+      description: cSet.size
+    });
   }
 
   const valuesHandler = () => {
-    setOutput(`Set values: ${cSet.values}`);
+    toast({
+      title: 'Set values',
+      description: cSet.values.toString()
+    });
   }
 
   return (
     <>
-      <SimpleGrid my={10} columns={2} spacing={10}>
-        <SectionItem>
-          <ul className={styles.setContainer}>
-            {DSASet.map((item, index) =>
-              <li className={styles.setItem} key={index}>{item}</li>
-            )}
-          </ul>
-        </SectionItem>
-        <SectionItem title='Output'>
-          {output}
-        </SectionItem>
-      </SimpleGrid>
+      <Flex my={10} minH={'40vh'} justifyContent={'center'} alignItems={'center'}>
+        <ul className={styles.setContainer}>
+          {DSASet.map((item, index) =>
+            <li className={styles.setItem} key={index}>{item}</li>
+          )}
+        </ul>
+      </Flex>
 
       <Tabs>
         <TabList>
