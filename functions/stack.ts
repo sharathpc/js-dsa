@@ -1,8 +1,8 @@
 export default class CStack {
-    private storage: number[];
+    private storage: any;
     private count: number;
     constructor() {
-        this.storage = [];
+        this.storage = {};
         this.count = 0;
     }
 
@@ -18,7 +18,7 @@ export default class CStack {
 
         this.count--;
         const result = this.storage[this.count];
-        this.storage.splice(-1, 1);
+        delete this.storage[this.count];
         return result;
     }
 
@@ -31,6 +31,6 @@ export default class CStack {
     }
 
     get elements(): number[] {
-        return [...this.storage];
+        return Object.values(this.storage);
     }
 }
