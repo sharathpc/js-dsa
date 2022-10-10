@@ -11,7 +11,7 @@ const HeadingSection = ({ title, description }: Props) => {
         <>
             <Heading
                 fontWeight={600}
-                fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+                fontSize={'4xl'}
                 lineHeight={'110%'} color={'green.400'}>
                 {title}
             </Heading>

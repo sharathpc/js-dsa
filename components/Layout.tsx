@@ -10,6 +10,7 @@ import {
     Link,
     Text,
     FlexProps,
+    Divider,
 } from '@chakra-ui/react';
 
 import HeadingSection from '../components/HeadingSection';
@@ -24,12 +25,12 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [{
     name: 'Stack',
-    description: 'Stack related description',
+    description: 'A Stack is a linear type of data structure which follows the LIFO(Last-In-First-Out) and allows insertion and deletion operations from one end of the data structure',
     icon: FiHome,
     href: '/stack'
 }, {
     name: 'Set',
-    description: 'Set related description',
+    description: 'A set is a data structure that stores unique elements of the same type in a sorted order',
     icon: FiHome,
     href: '/set'
 }, {
@@ -84,10 +85,13 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 ))}
             </Box>
             <Box ml={{ base: 0, md: 60 }} p="4">
-                {activeHeader && <HeadingSection
-                    title={activeHeader.name}
-                    description={activeHeader.description}
-                />}
+                {activeHeader && (<>
+                    <HeadingSection
+                        title={activeHeader.name}
+                        description={activeHeader.description}
+                    />
+                    <Divider my={5} />
+                </>)}
                 {children}
             </Box>
         </Box>
