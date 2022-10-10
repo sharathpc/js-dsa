@@ -1,36 +1,36 @@
 export default class CSet {
-    private storage: number[];
-    private count: number;
+    private storage: any[];
+
     constructor() {
         this.storage = [];
-        this.count = 0;
-    }
-
-    push(val: number) {
-        this.storage[this.count] = val;
-        this.count++;
-    }
-
-    pop(): number | undefined {
-        if (this.count === 0) {
-            return undefined
-        }
-
-        this.count--;
-        const result = this.storage[this.count];
-        this.storage.splice(-1, 1);
-        return result;
-    }
-
-    peek(): number {
-        return this.storage[this.count - 1];
     }
 
     get size(): number {
-        return this.count;
+        return this.storage.length;
     }
 
-    get elements(): number[] {
+    get values(): number[] {
         return [...this.storage];
+    }
+
+    has(val: any): boolean {
+        return this.storage.includes(val);
+    }
+
+    add(val: any): boolean {
+        if (!this.has(val)) {
+            this.storage.push(val);
+            return true;
+        }
+        return false;
+    }
+
+    remove(val: any): boolean {
+        if (this.has(val)) {
+            const valIndex = this.storage.indexOf(val);
+            this.storage.splice(valIndex, 1);
+            return true;
+        }
+        return false;
     }
 }

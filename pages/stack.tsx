@@ -13,7 +13,7 @@ import CStack from '../functions/stack';
 let cStack = new CStack();
 
 const Stack: NextPage = () => {
-  const [DSAStack, setDSAStack] = useState<number[]>([]);
+  const [DSAStack, setDSAStack] = useState<any[]>([]);
   const [output, setOutput] = useState<string>('');
 
   const pushHandler = () => {
@@ -41,6 +41,10 @@ const Stack: NextPage = () => {
     setOutput(`Stack length: ${cStack.size}`);
   }
 
+  const valuesHandler = () => {
+    setOutput(`Stack values: ${cStack.values}`);
+  }
+
   return (
     <>
       <SimpleGrid my={10} columns={2} spacing={10}>
@@ -62,6 +66,7 @@ const Stack: NextPage = () => {
           <Tab>Pop</Tab>
           <Tab>Peek</Tab>
           <Tab>Size</Tab>
+          <Tab>Values</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -75,6 +80,9 @@ const Stack: NextPage = () => {
           </TabPanel>
           <TabPanel>
             <Button width={100} onClick={sizeHandler}>Size</Button>
+          </TabPanel>
+          <TabPanel>
+            <Button width={100} onClick={valuesHandler}>Values</Button>
           </TabPanel>
         </TabPanels>
       </Tabs>
