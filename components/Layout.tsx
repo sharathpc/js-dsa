@@ -1,12 +1,13 @@
 import React, { ReactNode } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Link from 'next/link';
 import { IconType } from 'react-icons';
 import {
     Box,
     Flex,
     Icon,
     useColorModeValue,
-    Link,
     Text,
     FlexProps,
     Divider,
@@ -14,7 +15,6 @@ import {
 
 import HeadingSection from '../components/HeadingSection';
 import LinkItems from '../data/listItems';
-import Head from 'next/head';
 
 const Layout = ({ children }: { children: ReactNode }) => {
     const router = useRouter();
@@ -42,7 +42,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                     </Flex>
                     {LinkItems.map((link) => (
                         <NavItem key={link.name} icon={link.icon} href={link.href}>
-                            {link.name}
+                            <Text fontSize="xl" fontWeight="bold">{link.name}</Text>
                         </NavItem>
                     ))}
                 </Box>
@@ -64,11 +64,11 @@ const Layout = ({ children }: { children: ReactNode }) => {
 interface NavItemProps extends FlexProps {
     icon: IconType;
     href: string;
-    children: string;
+    children: ReactNode;
 }
 const NavItem = ({ icon, href, children, ...rest }: NavItemProps) => {
     return (
-        <Link href={href} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+        <Link href={href} style={{ textDecoration: 'none' }}>
             <Flex
                 align="center"
                 p="4"
