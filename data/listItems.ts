@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import { FiLayers, FiList } from "react-icons/fi";
+import { FiLayers, FiList, FiLifeBuoy } from "react-icons/fi";
 
 interface LinkItemProps {
     name: string;
@@ -21,8 +21,13 @@ const LinkItems: Array<LinkItemProps> = [{
 }, {
     name: 'Queue',
     description: '',
-    icon: FiList,
+    icon: FiLifeBuoy,
     href: '/queue'
+}, {
+    name: 'Priority Queue',
+    description: '',
+    icon: FiLifeBuoy,
+    href: '/pqueue'
 },/* {
     name: 'Linked List',
     description: '',

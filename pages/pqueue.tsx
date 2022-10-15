@@ -11,50 +11,52 @@ import {
   Flex
 } from '@chakra-ui/react'
 
-import styles from '../styles/queue.module.scss';
+import styles from '../styles/pqueue.module.scss';
 import TostConfig from '../data/tostConfig';
-import CQueue from '../functions/queue';
+import CPriorityQueue from '../functions/pqueue';
 
-const cQueue = new CQueue();
+const cPriorityQueue = new CPriorityQueue();
 
-const Queue: NextPage = () => {
-  const [DSAQueue, setDSAQueue] = useState<any[]>([]);
+const PriorityQueue: NextPage = () => {
+  const [DSAPriorityQueue, setDSAPriorityQueue] = useState<any[]>([]);
   const toast = useToast(TostConfig);
 
   const enqueueHandler = () => {
     const newNum = Math.floor(Math.random() * 10) + 1;
-    cQueue.enqueue(newNum);
+    const priority = Math.floor(Math.random() * 3) + 1;
+    cPriorityQueue.enqueue(newNum, priority);
     toast({
-      title: 'Item queued',
+      title: 'Item queued with priority',
       status: 'success',
-      description: newNum
+      description: `${newNum}:${priority}`
     });
-    setDSAQueue(cQueue.values);
+    setDSAPriorityQueue(cPriorityQueue.values);
   }
 
   const dequeueHandler = () => {
-    if (cQueue.size > 0) {
-      const dequeueNum = cQueue.dequeue();
+    if (cPriorityQueue.size > 0) {
+      const dequeueItem = cPriorityQueue.dequeue();
       toast({
-        title: 'Item dequeued',
+        title: 'Item dequeued with priority',
         status: 'warning',
-        description: dequeueNum
+        description: `${dequeueItem.value}:${dequeueItem.priority}`
       });
-      setDSAQueue(cQueue.values);
+      setDSAPriorityQueue(cPriorityQueue.values);
     }
   }
 
   const peekHandler = () => {
-    if (cQueue.size > 0) {
+    if (cPriorityQueue.size > 0) {
+      const peekItem = cPriorityQueue.peek()
       toast({
-        title: 'Peek item',
-        description: cQueue.peek()
+        title: `${peekItem.value}:${peekItem.priority}`,
+        description: cPriorityQueue.peek()
       });
     }
   }
 
   const isEmptyHandler = () => {
-    const isEmpty = cQueue.isEmpty();
+    const isEmpty = cPriorityQueue.isEmpty();
     toast({
       title: 'Queue empty',
       description: isEmpty.toString()
@@ -64,23 +66,27 @@ const Queue: NextPage = () => {
   const sizeHandler = () => {
     toast({
       title: 'Queue size',
-      description: cQueue.size
+      description: cPriorityQueue.size
     });
   }
 
   const valuesHandler = () => {
     toast({
       title: 'Queue values',
-      description: cQueue.values.toString()
+      description: cPriorityQueue.values.toString()
     });
   }
 
   return (
     <>
       <Flex my={10} minH={'40vh'} justifyContent={'center'} alignItems={'center'}>
-        <ul className={styles.queueContainer}>
-          {DSAQueue.map((item, index) =>
-            <li className={styles.queueItem} key={index}>{item}</li>
+        <ul className={styles.pqueueContainer}>
+          {DSAPriorityQueue.map((item, index) =>
+            <li className={styles.pqueueItem} key={index}>
+              <div className={styles.pqueueValue}>{item.value}</div>
+              <span className={styles.pqueueSeperator}>:</span>
+              <div className={styles.pqueuePriority}>{item.priority}</div>
+            </li>
           )}
         </ul>
       </Flex>
@@ -119,4 +125,4 @@ const Queue: NextPage = () => {
   )
 }
 
-export default Queue
+export default PriorityQueue

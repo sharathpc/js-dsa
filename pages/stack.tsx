@@ -45,10 +45,12 @@ const Stack: NextPage = () => {
   }
 
   const peekHandler = () => {
-    toast({
-      title: 'Peek item',
-      description: cStack.peek()
-    });
+    if (cStack.size > 0) {
+      toast({
+        title: 'Peek item',
+        description: cStack.peek()
+      });
+    }
   }
 
   const sizeHandler = () => {
