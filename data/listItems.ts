@@ -18,12 +18,12 @@ const LinkItems: Array<LinkItemProps> = [{
     description: 'A set is a data structure that stores unique elements of the same type in a sorted order',
     icon: FiList,
     href: '/set'
-}, /* {
+}, {
     name: 'Queue',
     description: '',
-    icon: FiHome,
+    icon: FiList,
     href: '/queue'
-}, {
+},/* {
     name: 'Linked List',
     description: '',
     icon: FiHome,

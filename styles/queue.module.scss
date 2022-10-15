@@ -1,0 +1,16 @@
+.queueContainer {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 400px;
+  text-align: center;
+  display: flex;
+  height: 5rem;
+  border: 1px solid;
+  .queueItem {
+    background-color: crimson;
+    padding: 20px;
+    border-right: 1px solid;
+    line-height: 2.5;
+  }
+}
