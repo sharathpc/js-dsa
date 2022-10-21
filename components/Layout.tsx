@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 import HeadingSection from '../components/HeadingSection';
-import LinkItems from '../data/listItems';
+import { LinkItems, LinkItemProps } from '../data/listItems';
 
 const Layout = ({ children }: { children: ReactNode }) => {
     const router = useRouter();
@@ -41,9 +41,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                         </Link>
                     </Flex>
                     {LinkItems.map((link) => (
-                        <NavItem key={link.name} icon={link.icon} href={link.href}>
-                            <Text fontSize="xl" fontWeight="bold">{link.name}</Text>
-                        </NavItem>
+                        <NavItem key={link.name} link={link} fontSize="xl" />
                     ))}
                 </Box>
                 <Box ml={{ base: 0, md: 60 }} p="4">
@@ -61,38 +59,51 @@ const Layout = ({ children }: { children: ReactNode }) => {
     );
 }
 
-interface NavItemProps extends FlexProps {
-    icon: IconType;
-    href: string;
-    children: ReactNode;
-}
-const NavItem = ({ icon, href, children, ...rest }: NavItemProps) => {
+const NavItem = ({ link, fontSize, ...rest }: {
+    link: LinkItemProps,
+    fontSize: string,
+    py?: number
+}) => {
+    let attributes = link.list ? {
+        fontSize: fontSize,
+        pb: 2
+    } : {
+        fontSize: fontSize,
+        cursor: 'pointer',
+        _hover: {
+            bg: 'green.400',
+            color: 'white',
+        }
+    };
     return (
-        <Link href={href} style={{ textDecoration: 'none' }}>
-            <Flex
-                align="center"
-                p="4"
-                mx="4"
-                borderRadius="lg"
-                role="group"
-                cursor="pointer"
-                _hover={{
-                    bg: 'green.400',
-                    color: 'white',
-                }}
-                {...rest}>
-                {icon && (
-                    <Icon
-                        mr="4"
-                        fontSize="16"
-                        _groupHover={{
-                            color: 'white',
-                        }}
-                        as={icon}
-                    />
-                )}
-                {children}
-            </Flex>
+        <Link href={link.href || ''} style={{ textDecoration: 'none' }}>
+            <Box>
+                <Flex
+                    align="center"
+                    p="4"
+                    mx="4"
+                    borderRadius="lg"
+                    role="group"
+                    {...attributes}
+                    {...rest}>
+                    {link.icon && (
+                        <Icon
+                            mr="4"
+                            fontSize="16"
+                            _groupHover={{
+                                color: 'white',
+                            }}
+                            as={link.icon}
+                        />
+                    )}
+                    <Text fontWeight="bold">{link.name}</Text>
+                </Flex>
+                <Box ml={6}>
+                    {link.list && link.list.map((item) => (
+                        <NavItem key={item.name} link={item} py={2} fontSize="md" />
+                    ))}
+                </Box>
+            </Box>
         </Link>
     );
 };

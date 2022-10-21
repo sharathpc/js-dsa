@@ -1,14 +1,15 @@
 import { IconType } from "react-icons";
 import { FiLayers, FiList, FiLifeBuoy } from "react-icons/fi";
 
-interface LinkItemProps {
+export interface LinkItemProps {
     name: string;
-    description: string,
-    icon: IconType;
-    href: string;
+    description: string;
+    icon?: IconType;
+    href?: string;
+    list?: LinkItemProps[];
 }
 
-const LinkItems: Array<LinkItemProps> = [{
+export const LinkItems: LinkItemProps[] = [{
     name: 'Stack',
     description: 'A Stack is a linear type of data structure which follows the LIFO(Last-In-First-Out) and allows insertion and deletion operations from one end of the data structure',
     icon: FiLayers,
@@ -22,32 +23,45 @@ const LinkItems: Array<LinkItemProps> = [{
     name: 'Queue',
     description: '',
     icon: FiLifeBuoy,
-    href: '/queue'
+    list: [{
+        name: 'Basic Queue',
+        description: '',
+        href: '/pqueue'
+    }, {
+        name: 'Priority Queue',
+        description: '',
+        href: '/pqueue'
+    }]
 }, {
-    name: 'Priority Queue',
-    description: '',
-    icon: FiLifeBuoy,
-    href: '/pqueue'
-},/* {
     name: 'Linked List',
     description: '',
-    icon: FiHome,
-    href: '/linked-list'
+    icon: FiLifeBuoy,
+    list: [{
+        name: 'Single Linked List',
+        description: '',
+        href: '/slinkedlist'
+    }, {
+        name: 'Double Linked List',
+        description: '',
+        href: '/dlinkedlist'
+    }, {
+        name: 'Circular Linked List',
+        description: '',
+        href: '/clinkedlist'
+    }]
 }, {
     name: 'Tree',
     description: '',
-    icon: FiHome,
+    icon: FiLifeBuoy,
     href: '/tree'
 }, {
     name: 'Trie',
     description: '',
-    icon: FiHome,
+    icon: FiLifeBuoy,
     href: '/trie'
 }, {
     name: 'Graph',
     description: '',
-    icon: FiHome,
+    icon: FiLifeBuoy,
     href: '/graph'
-} */];
-
-export default LinkItems;
+}];
