@@ -18,7 +18,17 @@ import { LinkItems, LinkItemProps } from '../data/listItems';
 
 const Layout = ({ children }: { children: ReactNode }) => {
     const router = useRouter();
-    const activeHeader = LinkItems.find(item => item.href === router.pathname);
+    let activeHeader = recursiveFindLinkItem(LinkItems);
+
+    function recursiveFindLinkItem(itemsList: LinkItemProps[]): LinkItemProps | undefined {
+        for (const item of itemsList) {
+            if (item.list) {
+                return recursiveFindLinkItem(item.list);
+            } else if (item.href === router.pathname) {
+                return item;
+            }
+        }
+    }
 
     return (
         <>
@@ -41,7 +51,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                         </Link>
                     </Flex>
                     {LinkItems.map((link) => (
-                        <NavItem key={link.name} link={link} fontSize="xl" />
+                        <NavItem key={link.name} link={link} activeLink={activeHeader?.href} fontSize="xl" />
                     ))}
                 </Box>
                 <Box ml={{ base: 0, md: 60 }} p="4">
@@ -59,22 +69,29 @@ const Layout = ({ children }: { children: ReactNode }) => {
     );
 }
 
-const NavItem = ({ link, fontSize, ...rest }: {
+const NavItem = ({ link, activeLink, fontSize, ...rest }: {
     link: LinkItemProps,
+    activeLink: string | undefined,
     fontSize: string,
     py?: number
 }) => {
-    let attributes = link.list ? {
+    let attributes: any = link.list ? {
         fontSize: fontSize,
-        pb: 2
+        py: 2,
     } : {
         fontSize: fontSize,
+        py: 3,
         cursor: 'pointer',
         _hover: {
-            bg: 'green.400',
+            bg: 'green.800',
             color: 'white',
         }
     };
+
+    if (link.href === activeLink) {
+        attributes['backgroundColor'] = 'green.400';
+    }
+
     return (
         <Link href={link.href || ''} style={{ textDecoration: 'none' }}>
             <Box>
@@ -82,6 +99,7 @@ const NavItem = ({ link, fontSize, ...rest }: {
                     align="center"
                     p="4"
                     mx="4"
+                    my="2"
                     borderRadius="lg"
                     role="group"
                     {...attributes}
@@ -100,7 +118,7 @@ const NavItem = ({ link, fontSize, ...rest }: {
                 </Flex>
                 <Box ml={6}>
                     {link.list && link.list.map((item) => (
-                        <NavItem key={item.name} link={item} py={2} fontSize="md" />
+                        <NavItem key={item.name} link={item} py={2} activeLink={activeLink} fontSize="md" />
                     ))}
                 </Box>
             </Box>

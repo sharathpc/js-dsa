@@ -26,7 +26,7 @@ export const LinkItems: LinkItemProps[] = [{
     list: [{
         name: 'Basic Queue',
         description: '',
-        href: '/pqueue'
+        href: '/queue'
     }, {
         name: 'Priority Queue',
         description: '',
