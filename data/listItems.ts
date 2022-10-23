@@ -22,31 +22,34 @@ export const LinkItems: LinkItemProps[] = [{
 }, {
     name: 'Queue',
     description: '',
-    icon: FiLifeBuoy,
     list: [{
         name: 'Basic Queue',
         description: '',
+        icon: FiLifeBuoy,
         href: '/queue'
     }, {
         name: 'Priority Queue',
         description: '',
+        icon: FiLifeBuoy,
         href: '/pqueue'
     }]
 }, {
     name: 'Linked List',
     description: '',
-    icon: FiLifeBuoy,
     list: [{
         name: 'Single Linked List',
         description: '',
+        icon: FiLifeBuoy,
         href: '/slinkedlist'
     }, {
         name: 'Double Linked List',
         description: '',
+        icon: FiLifeBuoy,
         href: '/dlinkedlist'
     }, {
         name: 'Circular Linked List',
         description: '',
+        icon: FiLifeBuoy,
         href: '/clinkedlist'
     }]
 }, {

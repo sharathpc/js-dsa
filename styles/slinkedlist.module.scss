@@ -1,0 +1,28 @@
+.slinkedlistContainer {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 400px;
+  text-align: center;
+  display: flex;
+  height: 5rem;
+  .slinkedlistItem {
+    background-color: crimson;
+    padding: 20px;
+    border: 1px solid;
+    line-height: 2.5;
+    position: relative;
+    min-width: 60px;
+    &:not(:last-child) {
+      margin-right: 40px;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      top: 40px;
+      left: 60px;
+      border-bottom: 1px solid;
+      width: 40px;
+    }
+  }
+}

@@ -2,14 +2,12 @@ import React, { ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import { IconType } from 'react-icons';
 import {
     Box,
     Flex,
     Icon,
     useColorModeValue,
     Text,
-    FlexProps,
     Divider,
 } from '@chakra-ui/react';
 
@@ -23,7 +21,10 @@ const Layout = ({ children }: { children: ReactNode }) => {
     function recursiveFindLinkItem(itemsList: LinkItemProps[]): LinkItemProps | undefined {
         for (const item of itemsList) {
             if (item.list) {
-                return recursiveFindLinkItem(item.list);
+                const headerItem = recursiveFindLinkItem(item.list);
+                if (headerItem) {
+                    return headerItem;
+                }
             } else if (item.href === router.pathname) {
                 return item;
             }
@@ -40,7 +41,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                     bg={useColorModeValue('white', 'gray.900')}
                     borderRight="1px"
                     borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-                    w={60}
+                    w={80}
                     pos="fixed"
                     h="full">
                     <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
@@ -54,7 +55,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                         <NavItem key={link.name} link={link} activeLink={activeHeader?.href} fontSize="xl" />
                     ))}
                 </Box>
-                <Box ml={{ base: 0, md: 60 }} p="4">
+                <Box ml={{ base: 0, md: 80 }} p="4">
                     {activeHeader && (<>
                         <HeadingSection
                             title={activeHeader.name}
@@ -88,7 +89,7 @@ const NavItem = ({ link, activeLink, fontSize, ...rest }: {
         }
     };
 
-    if (link.href === activeLink) {
+    if (link.href && link.href === activeLink) {
         attributes['backgroundColor'] = 'green.400';
     }
 
@@ -116,7 +117,7 @@ const NavItem = ({ link, activeLink, fontSize, ...rest }: {
                     )}
                     <Text fontWeight="bold">{link.name}</Text>
                 </Flex>
-                <Box ml={6}>
+                <Box ml={4}>
                     {link.list && link.list.map((item) => (
                         <NavItem key={item.name} link={item} py={2} activeLink={activeLink} fontSize="md" />
                     ))}
